@@ -2,6 +2,7 @@ require("dotenv").config();
 
 var fs = require("fs");
 var axios = require("axios");
+var moment = require('moment');
 var keys = require("./keys.js");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
@@ -36,17 +37,37 @@ switch(command) {
 
 }
 
-function bandsInTown(){
+function bandsInTown(artist){
 //     This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
+var bandsQueryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=6df351fd-4f57-407f-90ff-571e6c4aada7"
 axios
-    .get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=6df351fd-4f57-407f-90ff-571e6c4aada7")
+    .get(bandsQueryURL)
     .then(function(response){
-        console.log(response.data);
-            // Name of the venue
-            // Venue location
-            // Date of the Event (use moment to format this as "MM/DD/YYYY")
-       
+        console.log(response.data[0]);
+        console.log("\nVenue Name: " + response.data[0].venue.name +
+                    "\nVenue Location: " + response.data[0].venue.city +
+                    "\nEvent Date: " + moment(response.data[0].datetime).format('L'));  
     })
+    .catch(function(error) {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log("---------------Data---------------");
+            console.log(error.response.data);
+            console.log("---------------Status---------------");
+            console.log(error.response.status);
+            console.log("---------------Status---------------");
+            console.log(error.response.headers);
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an object that comes back with details pertaining to the error that occurred.
+            console.log(error.request);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+            }
+            console.log(error.config);
+        });
 
 }
 
@@ -82,7 +103,7 @@ axios
     .get("http://www.omdbapi.com/?t=" + parameter + "&apikey=af8c5bbd")
     .then(function(response){
         console.log(response.data);
-        
+
     })
 //   * Title of the movie.
 //   * Year the movie came out.
