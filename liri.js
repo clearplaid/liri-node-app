@@ -16,7 +16,7 @@ var spotify = new Spotify(keys.spotify);
 var command = process.argv[2];
 var parameter = process.argv[3];
 
-
+var choice = function() {
 switch(command) {
     case 'concert-this':
     bandsInTown(parameter);
@@ -33,21 +33,10 @@ switch(command) {
     case 'do-what-it-says':
     doWhatItSays(parameter);
     break;
-
-
+    }
 }
 
 function bandsInTown(artist){
-// Figure out how to get bands with longer names
-    //     var artist = "";
-    //     for (let i = 3; i < parameter.length; i++){
-    //         if (i > 3 && i < parameter.length) {  
-    //             artist = parameter + "+" + parameter[i];
-    //         }else {
-    //             artist = parameter;
-    //         }
-    //         console.log(artist);
-    // };
 
 var bandsQueryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=6df351fd-4f57-407f-90ff-571e6c4aada7"
 axios
@@ -140,11 +129,20 @@ axios
 
 function doWhatItSays(){
 //     Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+fs.readFile('random.txt', 'utf8', function (err, data) {
+        if (err) throw err;
 
+        var dataArr = data.split(',');
+
+        if (dataArr.length == 2) {
+            choice(dataArr[0], dataArr[1]);
+        }else if (dataArr.length == 1);
+    });
+}
 // It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
 
 // Edit the text in random.txt to test out the feature for movie-this and concert-this.
-}
+
 
 // BONUS
 // In addition to logging the data to your terminal/bash window, output the data to a .txt file called log.txt.
