@@ -38,20 +38,33 @@ switch(command) {
 }
 
 function bandsInTown(artist){
-//     This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
+// Figure out how to get bands with longer names
+    //     var artist = "";
+    //     for (let i = 3; i < parameter.length; i++){
+    //         if (i > 3 && i < parameter.length) {  
+    //             artist = parameter + "+" + parameter[i];
+    //         }else {
+    //             artist = parameter;
+    //         }
+    //         console.log(artist);
+    // };
+
 var bandsQueryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=6df351fd-4f57-407f-90ff-571e6c4aada7"
 axios
     .get(bandsQueryURL)
     .then(function(response){
-        console.log(response.data[0]);
-        console.log("\nVenue Name: " + response.data[0].venue.name +
-                    "\nVenue Location: " + response.data[0].venue.city +
-                    "\nEvent Date: " + moment(response.data[0].datetime).format('L'));  
+        
+        // console.log(response);
+        var dataLength = response.data.length;
+        for (let i = 0; i < dataLength; i++) {
+        console.log("\nVenue Name: " + response.data[i].venue.name +
+                    "\nVenue Location: " + response.data[i].venue.city +
+                    "\nEvent Date: " + moment(response.data[i].datetime).format('L'));  
+        }
     })
     .catch(function(error) {
         if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
+            // The request was made and the server responded with a status code that falls out of the range of 2xx
             console.log("---------------Data---------------");
             console.log(error.response.data);
             console.log("---------------Status---------------");
@@ -71,34 +84,37 @@ axios
 
 }
 
-function spotifyThisSong(){
-//     This will show the following information about the song in your terminal/bash window
+function spotifyThisSong(songTitle){
+// need to be able to process.Argv to be a string to read
+// If no song is provided then  default to "The Sign" by Ace of Base.
+console.log("Before if: " + songTitle)
+if (songTitle === undefined) {
+    var search = "the sign ace of base"
+    console.log("if: " + search);
+}else {
+    var search = songTitle;
+    console.log("Else: " + search);
+}
+spotify
+  .search({ 
+      type: 'track', 
+      query: search })
+  .then(function(response) {
+    console.log("\nArtist: " + response.tracks.items[0].artists[0].name +
+                "\nSong: " + response.tracks.items[0].name +
+                "\nAlbum: " + response.tracks.items[0].album.name +
+                "\nPreview: " + response.tracks.items[0].preview_url);
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
 
-// Artist(s)
-
-// The song's name
-
-// A preview link of the song from Spotify
-
-// The album that the song is from
-
-// If no song is provided then your program will default to "The Sign" by Ace of Base.
-
-// You will utilize the node-spotify-api package in order to retrieve song information from the Spotify API.
-
-// The Spotify API requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a client id and client secret:
-
-// Step One: Visit https://developer.spotify.com/my-applications/#!/
-
-// Step Two: Either login to your existing Spotify account or create a new one (a free account is fine) and log in.
-
-// Step Three: Once logged in, navigate to https://developer.spotify.com/my-applications/#!/applications/create to register a new application to be used with the Spotify API. You can fill in whatever you'd like for these fields. When finished, click the "complete" button.
-
-// Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the node-spotify-api package.
 }
 
-function movieThis(){
-//     This will output the following information to your terminal/bash window:
+function movieThis(movie){
+
+
+
 axios
     .get("http://www.omdbapi.com/?t=" + parameter + "&apikey=af8c5bbd")
     .then(function(response){
