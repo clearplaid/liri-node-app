@@ -94,16 +94,16 @@ function spotifyThisSong(songTitle){
 // If no song is provided then  default to "The Sign" by Ace of Base.
 console.log("Before if: " + songTitle)
 if (songTitle === undefined) {
-    var search = "the sign ace of base"
-    console.log("if: " + search);
+    var searchSong = "the sign ace of base"
+    console.log("if: " + searchSong);
 }else {
-    var search = songTitle;
-    console.log("Else: " + search);
+    var searchSong = songTitle;
+    console.log("Else: " + searchSong);
 }
 spotify
   .search({ 
       type: 'track', 
-      query: search })
+      query: searchSong })
   .then(function(response) {
       var songs = response.tracks.items;
       for (let i = 0; i < songs.length; i++){
@@ -122,23 +122,60 @@ spotify
 }
 
 function movieThis(movie){
-
+    // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
+    if (movie === undefined) {
+        var searchMovie = "Mr. Nobody"
+        console.log("if: " + searchMovie);
+    }else {
+        var searchMovie = movie;
+        console.log("Else: " + searchMovie);
+    }
 
 
 axios
-    .get("http://www.omdbapi.com/?t=" + parameter + "&apikey=af8c5bbd")
+    .get("http://www.omdbapi.com/?t=" + searchMovie + "&apikey=af8c5bbd")
     .then(function(response){
-        console.log(response.data);
-
+        // console.log(response.data);
+        console.log("--------------------------------------");            
+        //   * Title of the movie.
+        console.log("Title: " + response.data.Title);
+        //   * Year the movie came out.
+        console.log("Year: " + response.data.Year);
+        //   * IMDB Rating of the movie.
+        console.log("Rated: " + response.data.Rated);
+        //   * Rotten Tomatoes Rating of the movie.
+        console.log("Rotten Tomatoes: " + response.data.Ratings[1].Value);
+        //   * Country where the movie was produced.
+        console.log("Country: " + response.data.Country);
+        //   * Language of the movie.
+        console.log("Language: "+ response.data.Language);
+        //   * Actors in the movie.
+        console.log("Actors: " + response.data.Actors);
+        //   * Plot of the movie.
+        console.log("Plot: " + response.data.Plot);
+        console.log("--------------------------------------"); 
     })
-//   * Title of the movie.
-//   * Year the movie came out.
-//   * IMDB Rating of the movie.
-//   * Rotten Tomatoes Rating of the movie.
-//   * Country where the movie was produced.
-//   * Language of the movie.
-//   * Plot of the movie.
-//   * Actors in the movie.
+    .catch(function(error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log("---------------Data---------------");
+      console.log(error.response.data);
+      console.log("---------------Status---------------");
+      console.log(error.response.status);
+      console.log("---------------Status---------------");
+      console.log(error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an object that comes back with details pertaining to the error that occurred.
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log("Error", error.message);
+    }
+    console.log(error.config);
+  });
+
 // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 
 // If you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/
