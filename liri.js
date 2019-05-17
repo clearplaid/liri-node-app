@@ -11,30 +11,44 @@ var spotify = new Spotify(keys.spotify);
 
 // Bands in town api: 6df351fd-4f57-407f-90ff-571e6c4aada7
 
-// Make it so liri.js can take in one of the following commands:
-
 var command = process.argv[2];
 var parameter = process.argv[3];
+console.log(command);
+console.log(parameter);
 
-var choice = function() {
-switch(command) {
-    case 'concert-this':
-    bandsInTown(parameter);
-    break;
 
-    case 'spotify-this-song':
-    spotifyThisSong(parameter);
-    break;
+var choice = function(command, parameter) {
+    switch(command) {
+        case 'concert-this':
+        bandsInTown(parameter);
+        console.log("band parameter: " + parameter);
+        break;
 
-    case 'movie-this':
-    movieThis(parameter);
-    break;
+        case 'spotify-this-song':
+        spotifyThisSong(parameter);
+        console.log("song parameter: " + parameter)
+        break;
 
-    case 'do-what-it-says':
-    doWhatItSays(parameter);
-    break;
-    }
+        case 'movie-this':
+        movieThis(parameter);
+        console.log("movie parameter: " + parameter)
+        break;
+
+        case 'do-what-it-says':
+        doWhatItSays(parameter);
+        console.log("do parameter: " + parameter)
+        break;
+
+        default:
+        console.log('LIRI does not know that command! Try Again!');
+        console.log('Try One of These Commands:');
+        console.log('concert-this \nspotify-this-song \nmovie-this \ndo-what-it-says')
+        }
 }
+var userCommand = function(command, parameter) {
+    choice(command, parameter);
+}
+userCommand(command, parameter);
 
 function bandsInTown(artist){
 
@@ -46,10 +60,12 @@ axios
         // console.log(response);
         var dataLength = response.data.length;
         for (let i = 0; i < dataLength; i++) {
-        console.log("\nVenue Name: " + response.data[i].venue.name +
-                    "\nVenue Location: " + response.data[i].venue.city +
-                    "\nEvent Date: " + moment(response.data[i].datetime).format('L'));  
-        }
+            console.log([i]);
+            console.log("Venue Name: " + response.data[i].venue.name +
+                        "\nVenue Location: " + response.data[i].venue.city +
+                        "\nEvent Date: " + moment(response.data[i].datetime).format('L'));  
+            console.log("----------------------------------------\n");
+            }
     })
     .catch(function(error) {
         if (error.response) {
@@ -89,10 +105,15 @@ spotify
       type: 'track', 
       query: search })
   .then(function(response) {
-    console.log("\nArtist: " + response.tracks.items[0].artists[0].name +
-                "\nSong: " + response.tracks.items[0].name +
-                "\nAlbum: " + response.tracks.items[0].album.name +
-                "\nPreview: " + response.tracks.items[0].preview_url);
+      var songs = response.tracks.items;
+      for (let i = 0; i < songs.length; i++){
+        console.log([i]);
+        console.log("Artist: " + songs[i].artists[0].name +
+                    "\nSong: " + songs[i].name +
+                    "\nAlbum: " + songs[i].album.name +
+                    "\nPreview: " + songs[i].preview_url);
+        console.log("----------------------------------------\n");
+        }
   })
   .catch(function(err) {
     console.log(err);
