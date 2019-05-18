@@ -31,8 +31,8 @@ var choice = function(command, parameter) {
         movieThis(parameter);
         break;
 
-        case 'do-what-it-says':
-        doWhatItSays(parameter);
+        case 'make-it-so':
+        makeItSo(parameter);
         break;
 
         default:
@@ -55,23 +55,21 @@ function bandsInTown(artist){
     }else {
         var searchArtist = artist;
     }
-
+        fs.appendFile("log.txt", "\nArtist: " + searchArtist + '\n', function(err) {
+            if (err) throw(err)
+        });
     axios
         .get("https://rest.bandsintown.com/artists/" + searchArtist + "/events?app_id=6df351fd-4f57-407f-90ff-571e6c4aada7")
         .then(function(response){
             var divider = "\n------------------Event Info---------------------\n";
-
-            fs.appendFile("log.txt", searchArtist + '\n', function(err) {
-                if (err) throw(err);
                         
-            })
             var artistInfo = response.data;
+                console.log("Artist: " + searchArtist);
 
-            for (let i = 0; i < artistInfo.length; i++) {
-                
+            for (let i = 0; i < artistInfo.length; i++) {               
                 console.log(divider);
                 console.log([i + 1]);
-                console.log("Venue Name: " + artistInfo[i].venue.name +
+                console.log("\nVenue Name: " + artistInfo[i].venue.name +
                             "\nVenue Location: " + artistInfo[i].venue.city +
                             "\nEvent Date: " + moment(artistInfo[i].datetime).format('L'));  
 
@@ -211,7 +209,7 @@ function movieThis(movie){
 
 }
 
-function doWhatItSays(){
+function makeItSo(){
     lineReader.eachLine('random.txt', 'utf8', function(line) {
 
         var lineArr = line.split(', ');
