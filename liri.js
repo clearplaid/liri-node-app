@@ -234,17 +234,16 @@ function doWhatItSays(){
     //         };
     //     });
          // read all lines from random.txt:
-        lineReader.eachLine('random.txt', 'utf8', function(line) {
-            var lineArr = line.split(', ');
-            console.log("Data: " + lineArr);
-            if (lineArr.length == 2) {
-                choice(lineArr[0], lineArr[1]);
-            }else if (lineArr.length == 1) {
-                choice(lineArr[0]);
-            };
-            // }).then(function (err) {
-            // if (err) throw err;
-            // console.log("I'm done!!");
-            });
-        
+    lineReader.eachLine('random.txt', 'utf8', function(line) {
+
+        var lineArr = line.split(', ');
+        console.log("Data: " + lineArr);
+
+        if (lineArr.length == 2) {
+            choice(lineArr[0], lineArr[1]);
+        }else if (lineArr.length == 1) {
+            choice(lineArr[0]);
+        }
+    })   
+       
 }
