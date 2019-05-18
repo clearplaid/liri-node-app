@@ -13,7 +13,7 @@ liri.js can take in one of the following commands:
     * Venue location
     * Date of the Event (LIRI uses moment to format this as "MM/DD/YYYY")
   * LIRI will console log confirmation to the terminal/bash window  
-<img src="https://github.com/clearplaid/liri-node-app/tree/master/images/concert-no-args.PNG" alt="concert-this-no-arg" style="width:200px;"/>
+<img src="https://github.com/clearplaid/liri-node-app/blob/master/images/concert-args.PNG" alt="concert-this-no-arg" style="width:200px;"/>
 * ### spotify-this-song
   * node liri.js spotify-this-song '<song name here>'
   * This will search 
