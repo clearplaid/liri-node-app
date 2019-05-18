@@ -13,8 +13,13 @@ liri.js can take in one of the following commands:
     * Venue location
     * Date of the Event (LIRI uses moment to format this as "MM/DD/YYYY")
   * LIRI will console log confirmation to the terminal/bash window  
-  
+
+### User command only passed into LIRI will Output like this:
+There is a default artist programmed to still output if no errors.
 <img src="https://github.com/clearplaid/liri-node-app/blob/master/images/concert-no-arg.PNG" alt="concert-this-no-arg" style="width:200px;"/> 
+
+### User command and parameter passed into LIRI will Output like this:
+notice both the terminal and the log.txt will output data to the respective area.
 <img src="https://github.com/clearplaid/liri-node-app/blob/master/images/concert-args.PNG" alt="concert-this-arg" style="width:200px;"/>
 
 
@@ -28,8 +33,13 @@ liri.js can take in one of the following commands:
     * The album that the song is from
   * If no song is provided then LIRI will default to "The Sign" by Ace of Base.
   * LIRI will console log confirmation to the terminal/bash window  
- 
+
+### User command only passed into LIRI will Output like this:
+There is a default song programmed to still output if no errors.
 <img src="https://github.com/clearplaid/liri-node-app/blob/master/images/spotify-no-arg.PNG" alt="spotify-this-no-arg" style="width:200px;"/> 
+
+### User command and parameter passed into LIRI will Output like this:
+notice both the terminal and the log.txt will output data to the respective area.
 <img src="https://github.com/clearplaid/liri-node-app/blob/master/images/spotify-args.PNG" alt="spotify-this-arg" style="width:200px;"/>
  
   
@@ -46,14 +56,20 @@ liri.js can take in one of the following commands:
     * Plot of the movie.
   * If the user doesn't type a movie in, LIRI will output data for the movie 'Mr. Nobody.' 
   * LIRI will console log confirmation to the terminal/bash window  
- 
+
+### User command only passed into LIRI will Output like this:
+There is a default movie programmed to still output if no errors.
 <img src="https://github.com/clearplaid/liri-node-app/blob/master/images/movie-no-args.PNG" alt="movie-this-no-arg" style="width:200px;"/> 
+
+### User command and parameter passed into LIRI will Output like this:
+notice both the terminal and the log.txt will output data to the respective area.
 <img src="https://github.com/clearplaid/liri-node-app/blob/master/images/movie-args.PNG" alt="concert-this-no-arg" style="width:200px;"/> 
  
  
-* ### do-what-it-says
-  * node liri.js do-what-it-says
+* ### make-it-so
+  * node liri.js make it so
   * Using the line-reader Node package, LIRI will take each line of text inside of random.txt and then use it to call each of LIRI's commands that are requested.
-  
-  <img src="https://github.com/clearplaid/liri-node-app/blob/master/images/make-it-so.PNG" alt="make-it-so" style="width:200px;"/> 
+ 
+ ### User command only passed into LIRI will Output like this:
+ <img src="https://github.com/clearplaid/liri-node-app/blob/master/images/make-it-so.PNG" alt="make-it-so" style="width:200px;"/> 
 
