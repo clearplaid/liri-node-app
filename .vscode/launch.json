@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/liri.js",
-            "args": ["spotify-this-song", "the sign ace of base"]
+            "args": ["do-what-it-says"]
         }
     ]
 }

@@ -6,6 +6,7 @@ var moment = require('moment');
 var keys = require("./keys.js");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
+var lineReader = require("line-reader");
 
 // OMDb API: http://www.omdbapi.com/?i=tt3896198&apikey=af8c5bbd
 
@@ -109,7 +110,7 @@ function bandsInTown(artist){
 }
 
 function spotifyThisSong(songTitle){
-  
+    
     // If no song is provided then  default to "The Sign" by Ace of Base.
     if (songTitle === undefined) {
         var searchSong = "the sign ace of base";    
@@ -152,11 +153,9 @@ function spotifyThisSong(songTitle){
 function movieThis(movie){
     // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
     if (movie === undefined) {
-        var searchMovie = "Mr. Nobody"
-        console.log("if: " + searchMovie);
+        var searchMovie = "Mr. Nobody"; 
     }else {
         var searchMovie = movie;
-        console.log("Else: " + searchMovie);
     }
 
 
@@ -222,16 +221,30 @@ function movieThis(movie){
 function doWhatItSays(){
     // Using the fs Node package, LIRI will take the text inside of random.txt 
     // and then use it to call one of LIRI's commands.
-    fs.readFile('random.txt', 'utf8', function (err, data) {
-            if (err) {
-                throw err;
-            }
-            var dataArr = data.split(', ');
-            console.log("Data: " + dataArr);
-            if (dataArr.length == 2) {
-                choice(dataArr[0], dataArr[1]);
-            }else if (dataArr.length == 1) {
-                choice(dataArr[0]);
+    // fs.readFile('random.txt', 'utf8', function (err, data) {
+    //         if (err) {
+    //             throw err;
+    //         }
+    //         var dataArr = data.split(', ');
+    //         console.log("Data: " + dataArr);
+    //         if (dataArr.length == 2) {
+    //             choice(dataArr[0], dataArr[1]);
+    //         }else if (dataArr.length == 1) {
+    //             choice(dataArr[0]);
+    //         };
+    //     });
+         // read all lines from random.txt:
+        lineReader.eachLine('random.txt', 'utf8', function(line) {
+            var lineArr = line.split(', ');
+            console.log("Data: " + lineArr);
+            if (lineArr.length == 2) {
+                choice(lineArr[0], lineArr[1]);
+            }else if (lineArr.length == 1) {
+                choice(lineArr[0]);
             };
-        });
+            // }).then(function (err) {
+            // if (err) throw err;
+            // console.log("I'm done!!");
+            });
+        
 }
