@@ -41,6 +41,5 @@ liri.js can take in one of the following commands:
   
 * ### do-what-it-says
   * node liri.js do-what-it-says
-  * Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-  * First test: LIRI ran spotify-this-song for "I Want it That Way".
-  * Edited the text in random.txt to test out the feature for movie-this and concert-this.
+  * Using the line-reader Node package, LIRI will take each line of text inside of random.txt and then use it to call each of LIRI's commands that are requested.
+  

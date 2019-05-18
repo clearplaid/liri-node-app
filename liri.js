@@ -59,8 +59,8 @@ function bandsInTown(artist){
     axios
         .get("https://rest.bandsintown.com/artists/" + searchArtist + "/events?app_id=6df351fd-4f57-407f-90ff-571e6c4aada7")
         .then(function(response){
-            
-            console.log(searchArtist);
+            var divider = "\n---------------------------------------\n";
+
             fs.appendFile("log.txt", searchArtist + '\n', function(err) {
                 if (err) throw(err);
                     console.log("The artist name has been logged!");    
@@ -68,14 +68,14 @@ function bandsInTown(artist){
             var artistInfo = response.data;
 
             for (let i = 0; i < artistInfo.length; i++) {
-                console.log([i]);
+                console.log([i + 1]);
                 console.log("Venue Name: " + artistInfo[i].venue.name +
                             "\nVenue Location: " + artistInfo[i].venue.city +
                             "\nEvent Date: " + moment(artistInfo[i].datetime).format('L'));  
                 console.log("----------------------------------------\n");
 
                 fs.appendFile("log.txt", 
-                                '\n' + [i] + 
+                                '\n' + [i + 1] + 
                                 '\nVenue Name: ' + artistInfo[i].venue.name + 
                                 '\nVenue Location: ' + artistInfo[i].venue.city + 
                                 '\nEvent Date: ' + moment(artistInfo[i].datetime).format('L') + 
@@ -106,7 +106,6 @@ function bandsInTown(artist){
                 }
                 console.log(error.config);
             });
-
 }
 
 function spotifyThisSong(songTitle){
@@ -124,7 +123,7 @@ function spotifyThisSong(songTitle){
     .then(function(response) {
         var songs = response.tracks.items;
         for (let i = 0; i < songs.length; i++){
-            console.log([i]);
+            console.log([i + 1]);
             console.log("Artist: " + songs[i].artists[0].name +
                         "\nSong: " + songs[i].name +
                         "\nAlbum: " + songs[i].album.name +
@@ -132,7 +131,7 @@ function spotifyThisSong(songTitle){
             console.log("----------------------------------------\n");
 
             fs.appendFile("log.txt", 
-                            "\n" + [i] + 
+                            "\n" + [i + 1] + 
                             "\nArtist: " + songs[i].artists[0].name +
                             "\nSong: " + songs[i].name +
                             "\nAlbum: " + songs[i].album.name +
@@ -219,6 +218,16 @@ function movieThis(movie){
 }
 
 function doWhatItSays(){
+    lineReader.eachLine('random.txt', 'utf8', function(line) {
+
+        var lineArr = line.split(', ');
+
+        if (lineArr.length == 2) {
+            choice(lineArr[0], lineArr[1]);
+        }else if (lineArr.length == 1) {
+            choice(lineArr[0]);
+        }
+    })   
     // Using the fs Node package, LIRI will take the text inside of random.txt 
     // and then use it to call one of LIRI's commands.
     // fs.readFile('random.txt', 'utf8', function (err, data) {
@@ -233,17 +242,6 @@ function doWhatItSays(){
     //             choice(dataArr[0]);
     //         };
     //     });
-         // read all lines from random.txt:
-    lineReader.eachLine('random.txt', 'utf8', function(line) {
-
-        var lineArr = line.split(', ');
-        console.log("Data: " + lineArr);
-
-        if (lineArr.length == 2) {
-            choice(lineArr[0], lineArr[1]);
-        }else if (lineArr.length == 1) {
-            choice(lineArr[0]);
-        }
-    })   
+         // read all lines from random.txt: 
        
 }
