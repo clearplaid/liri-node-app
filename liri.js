@@ -59,30 +59,29 @@ function bandsInTown(artist){
     axios
         .get("https://rest.bandsintown.com/artists/" + searchArtist + "/events?app_id=6df351fd-4f57-407f-90ff-571e6c4aada7")
         .then(function(response){
-            var divider = "\n---------------------------------------\n";
+            var divider = "\n------------------Event Info---------------------\n";
 
             fs.appendFile("log.txt", searchArtist + '\n', function(err) {
                 if (err) throw(err);
-                    console.log("The artist name has been logged!");    
+                        
             })
             var artistInfo = response.data;
 
             for (let i = 0; i < artistInfo.length; i++) {
+                
+                console.log(divider);
                 console.log([i + 1]);
                 console.log("Venue Name: " + artistInfo[i].venue.name +
                             "\nVenue Location: " + artistInfo[i].venue.city +
                             "\nEvent Date: " + moment(artistInfo[i].datetime).format('L'));  
-                console.log("----------------------------------------\n");
 
-                fs.appendFile("log.txt", 
+                fs.appendFile("log.txt", divider +
                                 '\n' + [i + 1] + 
                                 '\nVenue Name: ' + artistInfo[i].venue.name + 
                                 '\nVenue Location: ' + artistInfo[i].venue.city + 
-                                '\nEvent Date: ' + moment(artistInfo[i].datetime).format('L') + 
-                                '\n----------------------------------------\n', 
+                                '\nEvent Date: ' + moment(artistInfo[i].datetime).format('L'), 
                             function(err) {
-                                if (err) throw(err);
-                                console.log("The artist info has been logged!");              
+                                if (err) throw(err);        
                             });
                 }
                 
@@ -109,7 +108,7 @@ function bandsInTown(artist){
 }
 
 function spotifyThisSong(songTitle){
-    
+    var divider = "\n------------------Song Info---------------------\n";
     // If no song is provided then  default to "The Sign" by Ace of Base.
     if (songTitle === undefined) {
         var searchSong = "the sign ace of base";    
@@ -123,23 +122,21 @@ function spotifyThisSong(songTitle){
     .then(function(response) {
         var songs = response.tracks.items;
         for (let i = 0; i < songs.length; i++){
+            console.log(divider);
             console.log([i + 1]);
             console.log("Artist: " + songs[i].artists[0].name +
                         "\nSong: " + songs[i].name +
                         "\nAlbum: " + songs[i].album.name +
                         "\nPreview: " + songs[i].preview_url);
-            console.log("----------------------------------------\n");
 
-            fs.appendFile("log.txt", 
+            fs.appendFile("log.txt", divider +
                             "\n" + [i + 1] + 
                             "\nArtist: " + songs[i].artists[0].name +
                             "\nSong: " + songs[i].name +
                             "\nAlbum: " + songs[i].album.name +
-                            "\nPreview: " + songs[i].preview_url + 
-                            '\n----------------------------------------\n', 
+                            "\nPreview: " + songs[i].preview_url, 
                         function(err) {
-                            if (err) throw(err);
-                            console.log("The song info has been logged!");              
+                            if (err) throw(err);             
             });
         }
     })
@@ -150,6 +147,7 @@ function spotifyThisSong(songTitle){
 }
 
 function movieThis(movie){
+    var divider = "\n------------------Movie Info---------------------\n";
     // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
     if (movie === undefined) {
         var searchMovie = "Mr. Nobody"; 
@@ -167,7 +165,7 @@ function movieThis(movie){
                 var rottenExists = response.data.Ratings[1].Value;;
             }
 
-            console.log("\n--------------------------------------" + 
+            console.log(divider + 
                         "\nTitle: " + response.data.Title +
                         "\nYear: " + response.data.Year +
                         "\nRated: " + response.data.Rated +
@@ -175,11 +173,9 @@ function movieThis(movie){
                         "\nCountry: " + response.data.Country +
                         "\nLanguage: "+ response.data.Language +
                         "\nActors: " + response.data.Actors +
-                        "\nPlot: " + response.data.Plot +
-                        "\n--------------------------------------\n");
+                        "\nPlot: " + response.data.Plot);
 
-            fs.appendFile("log.txt", 
-                            "\n--------------------------------------" + 
+            fs.appendFile("log.txt", divider + 
                             "\nTitle: " + response.data.Title +
                             "\nYear: " + response.data.Year +
                             "\nRated: " + response.data.Rated +
@@ -187,11 +183,9 @@ function movieThis(movie){
                             "\nCountry: " + response.data.Country +
                             "\nLanguage: "+ response.data.Language +
                             "\nActors: " + response.data.Actors +
-                            "\nPlot: " + response.data.Plot +
-                            "\n--------------------------------------\n", 
+                            "\nPlot: " + response.data.Plot, 
                         function(err) {
                             if (err) throw(err);
-                            console.log("The movie info has been logged!");
                         });
         })
         .catch(function(error) {
