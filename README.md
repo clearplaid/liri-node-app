@@ -1,4 +1,5 @@
 # LIRI Bot
+video link: https://youtu.be/1aj_N_Pe8mk
 ## Overview
 LIRI is a Language Interpretation and Recognition Interface. LIRI is a command line node app that takes in parameters and gives you back data.
 
